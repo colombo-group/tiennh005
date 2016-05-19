@@ -127,7 +127,7 @@
 	    }
 	}
 
-	$i = 0;
+	$i = 1;
 	$a = 0;
 	$b = 0;
 	$c = 0;
@@ -152,7 +152,7 @@
 		}
 		if(isset($_POST['numberC'])) {
 			$c = $_POST['numberC'];
-			if(!is_numeric($c)) {
+			if(!is_numeric($c)||(int)$_POST['numberC']==0) {
 				//echo "Yêu cầu nhập lại";
 				$check=0;
 			}
@@ -193,7 +193,7 @@
 		$paging->init($config);
 
 		echo "<div>";
-		$result = $paging->getStart() * $b;
+		$result = ($paging->getStart()+1) * $b;
 		for($j=0;$j<$c;$j++) {
 			if($result <= $a) {
 				echo $result." ";
