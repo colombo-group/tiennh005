@@ -27,12 +27,6 @@
 	</style>
 </head>
 <body>
-<form action="paginator.php" method="post">
-	<input type="text" name="numberA"></input>
-	<input type="text" name="numberB"></input>
-	<input type="text" name="numberC"></input>
-	<input type="submit" value="Hiển thị" name="submit"></input>
-</form>
 </body>
 </html>
 
@@ -103,7 +97,7 @@
 	                $p .= '<li><a href="'.$this->__link('1').'">First</a></li>';
 	                $p .= '<li><a href="'.$this->__link($this->_config['current_page']-1).'">Prev</a></li>';
 	            }
-	             
+	            /* 
 	            for ($i = 1; $i <= $this->_config['total_page']; $i++)
 	            {
 	                
@@ -114,7 +108,7 @@
 	                    $p .= '<li><a href="'.$this->__link($i).'">'.$i.'</a></li>';
 	                }
 	            }
-	 
+	 			*/
 	            if ($this->_config['current_page'] < $this->_config['total_page'])
 	            {
 	                $p .= '<li><a href="'.$this->__link($this->_config['current_page'] + 1).'">Next</a></li>';
@@ -158,10 +152,7 @@
 			}
 		}
 		if($check==1) {
-			while ($b*$i<=$a) {
-				$i++;
-			}
-			$i--;	
+			$i = (int)($a/$b);	
 		} else
 			echo "Yêu cầu nhập lại";
 		
@@ -175,11 +166,41 @@
 			$c = $_GET['c'];
 
 	}
+?>
+<form action="paginator.php" method="post">
+	<input type="text" name="numberA" value = "<?php
+													if(isset($_GET['a'])) 
+														echo $a;
+													else if (isset($_POST['numberA'])) {
+														echo $a;
+													}
+													else echo ""; 
+												?>">
+	</input>
+	<input type="text" name="numberB" value = "<?php
+													if(isset($_GET['b'])) 
+														echo $b;
+													else if (isset($_POST['numberB'])) {
+														echo $b;
+													}
+													else echo ""; 
+												?>">
+	</input>
+	<input type="text" name="numberC" value = "<?php
+													if(isset($_GET['c'])) 
+														echo $c;
+													else if (isset($_POST['numberC'])) {
+														echo $c;
+													}
+													else echo ""; 
+												?>">
+	</input>
+	<input type="submit" value="Hiển thị" name="submit"></input>
+</form>
+<?php	
 	if(isset($_GET['a']) || $check==1) {
-		while ($b*$i<=$a) {
-			$i++;
-		}
-		$i--;
+		
+		$i = (int)($a/$b);
 		$config = array(
 		'current_page'  => isset($_GET['page']) ? $_GET['page'] : 1, 
 		'total_record'  => $i,
